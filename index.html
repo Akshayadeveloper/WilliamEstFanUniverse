@@ -47,12 +47,30 @@
             Get Your Copy Now
         </button>
     </header>
+    
+    <!-- Limited-Time Offer Section with Countdown -->
+    <section class="w-full max-w-4xl mx-auto my-6 p-4 md:p-6 bg-red-600 rounded-2xl shadow-lg text-center transform scale-100 transition-transform duration-300 animate-pulse">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">LIMITED TIME OFFER</h2>
+        <p class="text-lg md:text-xl text-white font-medium mb-4">
+            Get your copy for just <span class="font-extrabold text-yellow-300">$10</span> today!
+        </p>
+        <p class="text-sm md:text-base text-gray-100 mb-2">
+            Channel members get an exclusive <span class="font-bold">5% OFF</span>.
+        </p>
+        <p class="text-sm md:text-base text-gray-100 mb-4">
+            This exclusive video will be <span class="font-bold text-lg md:text-xl">$15</span> tomorrow!
+        </p>
+        <div class="flex justify-center items-center text-white space-x-4">
+            <span class="text-xl md:text-2xl font-bold">Time Left:</span>
+            <span id="countdown-timer" class="text-3xl md:text-4xl font-extrabold text-yellow-300"></span>
+        </div>
+    </section>
 
     <!-- Product Description Section -->
     <main class="w-full max-w-4xl mx-auto p-8 my-10 bg-gray-800 rounded-3xl shadow-2xl">
         <div class="grid md:grid-cols-2 gap-8 items-center">
             <div class="space-y-4">
-                <h2 class="text-3xl font-bold text-blue-400 mb-2">The 40-Minute Epic With Clear Eng Sub</h2>
+                <h2 class="text-3xl font-bold text-blue-400 mb-2">The 40-Minute Epic With Eng Sub</h2>
                 <p class="text-gray-300 leading-relaxed">
                     This video is a comprehensive fan creation diving deep into the untold stories and intricate connections of the William EST lore.
                 </p>
@@ -93,9 +111,25 @@
                     <input type="tel" id="phone" name="phone" class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
                 </div>
                 <div>
-                    <label for="product" class="block text-gray-300 font-medium mb-2">Product</label>
-                    <select id="product" name="product" class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
-                        <option value="fan-video" selected>40-Min Fan Video</option>
+                    <label for="country" class="block text-gray-300 font-medium mb-2">Country</label>
+                    <select id="country" name="country" required class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <option value="" disabled selected>Select your country</option>
+                        <option value="usa">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="canada">Canada</option>
+                        <option value="australia">Australia</option>
+                        <option value="thailand">Thailand</option>
+                        <option value="philippines">Philippines</option>
+                        <option value="singapore">Singapore</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="payment-method" class="block text-gray-300 font-medium mb-2">Payment Method</label>
+                    <select id="payment-method" name="payment-method" required class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <option value="" disabled selected>Select a payment option</option>
+                        <option value="paypal">PayPal</option>
+                        <option value="googlepay">Google Pay</option>
                     </select>
                 </div>
                 <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 px-4 rounded-xl shadow-lg hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
@@ -109,7 +143,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <h3 id="message-title" class="text-xl font-bold mb-2">Request Submitted!</h3>
-                <p id="message-text" class="text-gray-300">Thank you for your interest! We have received your order request and will contact you via email with a PayPal invoice and download instructions shortly.</p>
+                <p id="message-text" class="text-gray-300">Thank you for your interest! We have received your order request and will contact you shortly.</p>
                 <button id="message-close-btn" class="mt-4 bg-gray-700 text-gray-300 py-2 px-6 rounded-full hover:bg-gray-600 transition-colors duration-200">Close</button>
             </div>
         </div>
@@ -134,7 +168,30 @@
         const orderForm = document.getElementById('order-form');
         const formContent = document.getElementById('form-content');
         const messageBox = document.getElementById('message-box');
+        const messageTitle = document.getElementById('message-title');
+        const messageText = document.getElementById('message-text');
         const messageCloseBtn = document.getElementById('message-close-btn');
+        const countdownTimer = document.getElementById('countdown-timer');
+
+        // Function to update the countdown timer
+        function updateCountdown() {
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+
+            const timeLeft = tomorrow - now;
+
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            countdownTimer.textContent = `${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        // Update the countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
 
         // Show the order form section
         buyNowBtn.addEventListener('click', () => {
@@ -163,6 +220,7 @@
             e.preventDefault();
             
             const formData = new FormData(orderForm);
+            const paymentMethod = formData.get('payment-method');
             const response = await fetch(orderForm.action, {
                 method: orderForm.method,
                 body: formData,
@@ -173,11 +231,23 @@
 
             if (response.ok) {
                 console.log("Order request submitted successfully to Formspree.");
+                
+                // Update message content based on payment method
+                if (paymentMethod === 'paypal') {
+                    messageTitle.textContent = "PayPal Invoice Sent!";
+                    messageText.textContent = "Thank you! We've sent a PayPal invoice to your email with a download link. Please check your inbox shortly.";
+                } else if (paymentMethod === 'googlepay') {
+                    messageTitle.textContent = "Google Pay Details Sent!";
+                    messageText.textContent = "Thank you! We've sent an email with our Google Pay ID. Once payment is confirmed, you'll receive a special link to access the download.";
+                } else {
+                    messageTitle.textContent = "Request Submitted!";
+                    messageText.textContent = "Thank you for your interest! We have received your order request and will contact you shortly.";
+                }
+                
                 messageBox.classList.remove('hidden');
                 orderForm.reset();
             } else {
                 console.error("Formspree submission failed.");
-                // You can add logic here to show an error message
             }
         });
     </script>
