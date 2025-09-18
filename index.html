@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>William EST Fan Universe</title>
+    <title>WE_FanUniverse</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
@@ -21,6 +21,16 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col items-center">
@@ -28,10 +38,10 @@
     <!-- Hero Section -->
     <header class="w-full text-center py-20 hero-bg rounded-b-3xl shadow-xl">
         <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-4 tracking-wide drop-shadow-md animate-pulse">
-            WilliamESTFanUniverse Channel
+            The WE_FanUniverse
         </h1>
         <p class="text-xl md:text-2xl text-gray-300 font-medium mb-8 max-w-2xl mx-auto">
-            Experience the 40-minute fan film with clear English subtitles you've been waiting for. A tribute to the lore you love.
+            Experience the 40-minute fan film you've been waiting for. A tribute to the lore you love.
         </p>
         <button id="buy-now-btn" class="bg-blue-600 text-white font-bold py-4 px-12 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
             Get Your Copy Now
@@ -42,9 +52,9 @@
     <main class="w-full max-w-4xl mx-auto p-8 my-10 bg-gray-800 rounded-3xl shadow-2xl">
         <div class="grid md:grid-cols-2 gap-8 items-center">
             <div class="space-y-4">
-                <h2 class="text-3xl font-bold text-blue-400 mb-2">The 40-Minute Epic</h2>
+                <h2 class="text-3xl font-bold text-blue-400 mb-2">The 40-Minute Epic With Clear Eng Sub</h2>
                 <p class="text-gray-300 leading-relaxed">
-                    This video is a comprehensive fan creation diving deep into the untold stories and intricate connections of the WilliamEST lore.
+                    This video is a comprehensive fan creation diving deep into the untold stories and intricate connections of the William EST lore.
                 </p>
                 <ul class="list-disc list-inside text-gray-400 space-y-2">
                     <li>High-quality, cinematic fan content</li>
@@ -69,7 +79,7 @@
                 </svg>
             </button>
             <h2 class="text-3xl font-bold text-blue-400 mb-6 text-center">Place Your Order</h2>
-            <form id="order-form" class="space-y-6">
+            <form id="order-form" action="https://formspree.io/f/xeooydzk" method="POST" class="space-y-6">
                 <div>
                     <label for="name" class="block text-gray-300 font-medium mb-2">Full Name</label>
                     <input type="text" id="name" name="name" required class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
@@ -105,10 +115,16 @@
         </div>
     </section>
 
+    <!-- Disclaimer -->
+    <section class="w-full max-w-4xl mx-auto p-8 my-10 text-center">
+        <p class="text-gray-500 text-sm">
+            Disclaimer: This site is for entertainment purposes only and was created by our channel admin to support channel members and subscribers all over the world. The content is an original fan creation and is not affiliated with or endorsed by GMMTV or any official entities.
+        </p>
+    </section>
+
     <!-- Footer -->
-    <footer class="w-full text-center py-6 text-gray-500 mt-auto">
-      <p> This site is solely created by our channel members to support Fanbase products and activities no Gmmtv or WilliamEst responsible for this site. This site only to entertain our channel members and subscribers </p>
-        &copy; 2025 WilliamESTFanUniverse. All Rights Reserved.
+    <footer class="w-full text-center py-6 text-gray-500">
+        &copy; 2025 WE_FanUniverse. All Rights Reserved.
     </footer>
     
     <script>
@@ -142,25 +158,28 @@
             closeBtn.click(); // Also hide the main form container
         });
         
-        // Handle form submission
-        orderForm.addEventListener('submit', (e) => {
+        // Handle form submission with Formspree
+        orderForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // In a real application, you would send this data to a server.
-            // Since this is a front-end only app, we'll just simulate a successful submission
-            // and log the data.
             const formData = new FormData(orderForm);
-            const data = Object.fromEntries(formData.entries());
-            
-            console.log("Order request submitted:", data);
-            
-            // Show the success message box
-            messageBox.classList.remove('hidden');
-            
-            // Reset the form after submission
-            orderForm.reset();
-        });
+            const response = await fetch(orderForm.action, {
+                method: orderForm.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
 
+            if (response.ok) {
+                console.log("Order request submitted successfully to Formspree.");
+                messageBox.classList.remove('hidden');
+                orderForm.reset();
+            } else {
+                console.error("Formspree submission failed.");
+                // You can add logic here to show an error message
+            }
+        });
     </script>
 </body>
 </html>
