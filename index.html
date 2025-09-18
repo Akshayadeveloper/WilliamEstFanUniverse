@@ -1,0 +1,166 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>William EST Fan Universe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background for a cinematic feel */
+            color: #e2e8f0;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://placehold.co/1920x1080/0F172A/E2E8F0?text=Fan+Universe+Banner') no-repeat center center/cover;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col items-center">
+
+    <!-- Hero Section -->
+    <header class="w-full text-center py-20 hero-bg rounded-b-3xl shadow-xl">
+        <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-4 tracking-wide drop-shadow-md animate-pulse">
+            WilliamESTFanUniverse Channel
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-300 font-medium mb-8 max-w-2xl mx-auto">
+            Experience the 40-minute fan film with clear English subtitles you've been waiting for. A tribute to the lore you love.
+        </p>
+        <button id="buy-now-btn" class="bg-blue-600 text-white font-bold py-4 px-12 rounded-full shadow-lg hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+            Get Your Copy Now
+        </button>
+    </header>
+
+    <!-- Product Description Section -->
+    <main class="w-full max-w-4xl mx-auto p-8 my-10 bg-gray-800 rounded-3xl shadow-2xl">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <div class="space-y-4">
+                <h2 class="text-3xl font-bold text-blue-400 mb-2">The 40-Minute Epic</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    This video is a comprehensive fan creation diving deep into the untold stories and intricate connections of the WilliamEST lore.
+                </p>
+                <ul class="list-disc list-inside text-gray-400 space-y-2">
+                    <li>High-quality, cinematic fan content</li>
+                    <li>Detailed analysis and original theories</li>
+                    <li>Exclusive behind-the-scenes footage</li>
+                    <li>40 minutes of pure fan dedication</li>
+                </ul>
+            </div>
+            <div>
+                <!-- Placeholder for a video or image related to the content -->
+                <img src="https://placehold.co/600x400/0F172A/E2E8F0?text=Cinematic+Still" alt="Product Preview" class="rounded-2xl shadow-lg border-2 border-gray-700 w-full">
+            </div>
+        </div>
+    </main>
+    
+    <!-- Order Form Section (Initially hidden) -->
+    <section id="order-form-section" class="fixed inset-0 bg-gray-900 bg-opacity-95 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-gray-800 p-8 md:p-12 rounded-3xl shadow-2xl w-full max-w-lg relative transform transition-all duration-300 scale-95 opacity-0" id="form-content">
+            <button id="close-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h2 class="text-3xl font-bold text-blue-400 mb-6 text-center">Place Your Order</h2>
+            <form id="order-form" class="space-y-6">
+                <div>
+                    <label for="name" class="block text-gray-300 font-medium mb-2">Full Name</label>
+                    <input type="text" id="name" name="name" required class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                </div>
+                <div>
+                    <label for="email" class="block text-gray-300 font-medium mb-2">Email Address</label>
+                    <input type="email" id="email" name="email" required class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                </div>
+                <div>
+                    <label for="phone" class="block text-gray-300 font-medium mb-2">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                </div>
+                <div>
+                    <label for="product" class="block text-gray-300 font-medium mb-2">Product</label>
+                    <select id="product" name="product" class="w-full p-4 bg-gray-700 border border-gray-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+                        <option value="fan-video" selected>40-Min Fan Video</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-4 px-4 rounded-xl shadow-lg hover:bg-blue-700 transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50">
+                    Submit Request
+                </button>
+            </form>
+            
+            <!-- Message Box -->
+            <div id="message-box" class="hidden absolute inset-0 bg-gray-800 bg-opacity-95 flex flex-col items-center justify-center p-8 text-center rounded-3xl" style="animation: slideIn 0.5s ease-in-out;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-green-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <h3 id="message-title" class="text-xl font-bold mb-2">Request Submitted!</h3>
+                <p id="message-text" class="text-gray-300">Thank you for your interest! We have received your order request and will contact you via email with a PayPal invoice and download instructions shortly.</p>
+                <button id="message-close-btn" class="mt-4 bg-gray-700 text-gray-300 py-2 px-6 rounded-full hover:bg-gray-600 transition-colors duration-200">Close</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-6 text-gray-500 mt-auto">
+      <p> This site is solely created by our channel members to support Fanbase products and activities no Gmmtv or WilliamEst responsible for this site. This site only to entertain our channel members and subscribers </p>
+        &copy; 2025 WilliamESTFanUniverse. All Rights Reserved.
+    </footer>
+    
+    <script>
+        const buyNowBtn = document.getElementById('buy-now-btn');
+        const orderFormSection = document.getElementById('order-form-section');
+        const closeBtn = document.getElementById('close-btn');
+        const orderForm = document.getElementById('order-form');
+        const formContent = document.getElementById('form-content');
+        const messageBox = document.getElementById('message-box');
+        const messageCloseBtn = document.getElementById('message-close-btn');
+
+        // Show the order form section
+        buyNowBtn.addEventListener('click', () => {
+            orderFormSection.classList.remove('hidden');
+            setTimeout(() => {
+                formContent.classList.remove('scale-95', 'opacity-0');
+            }, 10);
+        });
+
+        // Hide the order form section
+        closeBtn.addEventListener('click', () => {
+            formContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                orderFormSection.classList.add('hidden');
+            }, 300);
+        });
+        
+        // Hide the message box
+        messageCloseBtn.addEventListener('click', () => {
+            messageBox.classList.add('hidden');
+            closeBtn.click(); // Also hide the main form container
+        });
+        
+        // Handle form submission
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // In a real application, you would send this data to a server.
+            // Since this is a front-end only app, we'll just simulate a successful submission
+            // and log the data.
+            const formData = new FormData(orderForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            console.log("Order request submitted:", data);
+            
+            // Show the success message box
+            messageBox.classList.remove('hidden');
+            
+            // Reset the form after submission
+            orderForm.reset();
+        });
+
+    </script>
+</body>
+</html>
